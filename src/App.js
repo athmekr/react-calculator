@@ -1,13 +1,44 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './styles.css';
 import './App.css';
+import {useReducer} from "react";
+import { ACTIONS } from "./Actions";
+import DigitButton from "./DigitButton";
+
+// const ACTIONS = {
+//     ADD_DIGIT: 'add-digit',
+//     CLEAR: 'clear',
+//     DELETE_DIGIT: 'delete-digit',
+//     CHOOSE_OPERATION: 'choose-operation',
+//     EVALUATE: 'evaluate'
+// }
+
+function reducer(state, {type, payload}) {
+    switch(state) {
+        case ACTIONS.ADD_DIGIT:
+            return {
+                ...state,
+                currentOperand: `${currentOperand || ""}${payload.digit}`
+            }
+        // case ACTIONS.ADD_DIGIT:
+        //     return state;
+        // case ACTIONS.ADD_DIGIT:
+        //     return state;
+        // case ACTIONS.ADD_DIGIT:
+        //     return state;
+
+
+    }
+}
 
 function App() {
+    const [{currentOperand, previousOperand, operation}, dispatch] = useReducer(reducer, {})
+    dispatch({type: ACTIONS.ADD_DIGIT, payload: {digit: 1}})
   return (
       <div className="calculator-grid">
         <div className="output">
-            <div className="previous-operand">123.12 * 1</div>
-            <div className="current-operand">123.12</div>
+            <div className="previous-operand">{previousOperand} {operation}</div>
+            <div className="current-operand">{currentOperand}</div>
         </div>
         <button className="span-two">AC</button>
         <button>DEL</button>
